@@ -1,6 +1,6 @@
 <!DOCTYPE html> 
 <meta charset="utf-8">
-<title>The Wealth & Health of Nations</title>
+<title>The NRHM Expenditude & its effect on states</title>
 <style>
 
 @import url(../style.css?20120427);
@@ -11,6 +11,9 @@
 }
 
 text {
+  font: 10px sans-serif;
+}
+p {
   font: 10px sans-serif;
 }
 
@@ -51,11 +54,24 @@ text {
 
 <p id="chart"></p>
 
-<aside>Mouseover the year to move forward and backwards through time.</aside>
+<aside>Mouseover the year to move forward and backwards through time.<br/>
+  <p style='color: #1569C7;'>Bihar </p>
+<p style='color: #FFA500;'>Chhattisgarh </p>
+<p style='color: #254117;'>Himachal Pradesh </p>
+<p style='color: #FF0000;'>Jammu and Kashmir </p>
+<p style='color: #800080;'>Jharkhand </p>
+<p style='color: #7F462C;'>Madhya Pradesh </p>
+<p style='color: #B93B8F;'>Orissa</p>
+  <p style='color: #808080;'>Rajasthan</p>
+  <p style='color: #008000;'>Uttar pradesh </p>
+  <p style='color: #ADD8E6;'>Uttarakhand</p>
+
+</aside>
 
 
-
+<div id="comment"></div>
 <script src="d3.v2.js"></script>
+<script src="jquery-1.9.1.min.js"></script>
 <script>
 
 // Various accessors that specify the four dimensions of data to visualize.
@@ -157,7 +173,7 @@ d3.json("nrhm.json", function(nations) {
 
   // Start a transition that interpolates the data based on year.
   svg.transition()
-      .duration(30000)
+      .duration(30000*2)
       .ease("linear")
       .tween("year", tweenYear)
       .each("end", enableInteraction);
@@ -213,7 +229,43 @@ d3.json("nrhm.json", function(nations) {
   // Updates the display to show the specified year.
   function displayYear(year) {
     dot.data(interpolateData(year), key).call(position).sort(order);
-    label.text(Math.round(year));
+    label.text(Math.ceil(year)-1);
+    if ( $(".year.label").text()=="2006") {
+$("#comment").html("<p style='color: #808080;'>2006 : Rajasthan and <p style='color: #7F462C;'>Madhya Pradesh </p><p>show positive response to NRHM with continuosuly decreasing <br/>no. of deaths due to dengue and Malaria.</p>");
+}
+else if (
+      $(".year.label").text()=="2007") {
+$("#comment").html("<p style='color: #1569C7;'>2007 : Bihar and </p><p style='color: #008000;'> Uttar pradesh </p> <p>are showing improvement with decrease in casuality by 44% and 16% respectively.</p>");
+}
+else if (
+      $(".year.label").text()=="2008") {
+$("#comment").html("");
+}
+else if (
+      $(".year.label").text()=="2009") {
+$("#comment").html("<p style='color: #B93B8F;'>2009 : Orissa is showing a short spike in number of deaths. It is due to 247 cases of Malaria</p>");
+}
+else if (
+      $(".year.label").text()=="2011") {
+$("#comment").html("");
+}
+else if (
+      $(".year.label").text()=="2010") {
+$("#comment").html("<p style='color: #1569C7;'>2010 : Bihar and</p><p style='color: #008000;'>Uttar pradesh</p><p>and is showing a spike with 165% and 17% increase respectively. It is due to Japenese Encephalitis pandemic.</p>"+
+  "<p style='color: #7F462C;'>2010 : Madhya Pradesh : Number of deaths tripe due to malaria pandemic.</p>");
+}
+else if (
+      $(".year.label").text()=="2012") {
+$("#comment").html("<p> Data too good to be true. Probably incomplete.");
+}
+
+else
+{
+  $("#comment").html("");
+};
+
+
+
   }
 
   // Interpolates the dataset for the given (fractional) year.
@@ -241,5 +293,11 @@ d3.json("nrhm.json", function(nations) {
     return a[1];
   }
 });
+$(document).ready(function() {
+   //alert($(".year.label").text());
+if ($(".year.label").text()=="2006") {
+  //alert("2006!");
+}
 
+});
 </script>
