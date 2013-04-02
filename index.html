@@ -129,7 +129,7 @@ svg.append("text")
     .attr("y", 6)
     .attr("dy", ".75em")
     .attr("transform", "rotate(-90)")
-    .text("Number of deaths due to diseases");
+    .text("Number of deaths due to diseases per 100,000 population");
 
 // Add the year label; the value is set on transition.
 var label = svg.append("text")
@@ -156,9 +156,12 @@ d3.json("nrhm.json", function(nations) {
       .call(position)
       .sort(order);
 
+
   // Add a title.
   dot.append("title")
       .text(function(d) { return d.name; });
+
+
 
   // Add an overlay for the year label.
   var box = label.node().getBBox();
