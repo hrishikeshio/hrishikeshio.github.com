@@ -32,7 +32,7 @@
 <p>This is the place where you can find tested and veridied smart contracts. All you need to do is to add the contract to your mist </p> 
 
 <h3> Splitter contract</h3>
-This contract equally splits the sent ether in two parts. This is for demonstration purpose only. Please do not use this contract as currently there is not way to withdraw fees collected.
+This contract equally splits the sent ether in two parts. This is for demonstration purpose only. Please do not use this contract as it is still under development.
 <pre><code>
 contract Splittr {
   string public name;
@@ -46,7 +46,7 @@ contract Splittr {
     }
     modifier ownerOnly() {if (msg.sender!=owner) throw; _}
     
-    function split(address receiver1, address receiver2)
+    function split(address receiver1, address receiver2) public returns (bool success)
     {
         if (msg.value>0)
         {
@@ -59,8 +59,8 @@ contract Splittr {
           }
       }        
     }
-function withdraw(uint withdrawAmount) ownerOnly public returns (bool success) {
-
+function withdraw(uint withdrawAmount) ownerOnly public returns (bool success) 
+{
             if (!msg.sender.send(withdrawAmount))
             {throw;
             }
