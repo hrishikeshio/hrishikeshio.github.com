@@ -39,11 +39,13 @@ contract Splittr {
     string public symbol;
     uint8 public decimals;
     string public standard = 'Token 0.1';
-
+    address owner=msg.sender;
     function Splittr()
       {
-          address owner=msg.sender;
+          
     }
+    modifier ownerOnly() {if (msg.sender!=owner) throw; _}
+    
     function split(address receiver1, address receiver2)
     {
         if (msg.value>0)
@@ -57,6 +59,14 @@ contract Splittr {
           }
       }        
     }
+function withdraw(uint withdrawAmount) ownerOnly public returns (bool success) {
+
+            if (!msg.sender.send(withdrawAmount))
+            {throw;
+            }
+
+        }
+
     
 }
 </code></pre>
